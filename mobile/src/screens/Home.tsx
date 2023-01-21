@@ -1,14 +1,14 @@
+import { useCallback, useState } from 'react';
 import { Text, View, ScrollView, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
+import { api } from '../lib/axios';
 import { generateRangeDatesFromYearStart } from '../utils/generate-range-between-dates';
 
 import { Header } from '../components/Header';
-import { HabitDay, DAY_SIZE } from '../components/HabitDay';
-import { useEffect, useState } from 'react';
-import { api } from '../lib/axios';
-import dayjs from 'dayjs';
 import { Loading } from '../components/Loading';
+import { HabitDay, DAY_SIZE } from '../components/HabitDay';
+import dayjs from 'dayjs';
 
 const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
 const datesFromYearStart = generateRangeDatesFromYearStart();
@@ -25,6 +25,7 @@ type SummaryProps = Array<{
 export function Home() {
   const [loading, setLoading] = useState(true)
   const [summary, setSummary] = useState<SummaryProps | null>(null)
+
   const { navigate } = useNavigation()
 
   async function fetchData() {
@@ -40,9 +41,9 @@ export function Home() {
     }
   }
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useFocusEffect(useCallback(() => {
+      fetchData()
+    }, []))
 
   if (loading) {
     return (
@@ -57,7 +58,7 @@ export function Home() {
       <View className="flex-row mt-6 mb-2">
         {
           weekDays.map((weekDay, i) => (
-            <Text
+            <Text 
               key={`${weekDay}-${i}`}
               className="text-zinc-400 text-xl font-bold text-center mx-1"
               style={{ width: DAY_SIZE }}
@@ -72,7 +73,7 @@ export function Home() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 100 }}
       >
-       {
+        {
           summary && (
             <View className='flex-row flex-wrap'>
               {
