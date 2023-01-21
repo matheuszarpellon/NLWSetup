@@ -28,14 +28,14 @@ export function HabitDay({ defaultCompleted = 0, amount = 0, date }: HabitDayPro
         className={clsx("w-10 h-10 border-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 focus:ring-offset-background", {
           "bg-zinc-900 border-zinc-800": completedPercentage === 0,
           "bg-violet-900 border-violet-500":
-            completedPercentage > 0 && completedPercentage < 20,
+            completedPercentage > 0 && completedPercentage < 25,
           "bg-violet-800 border-violet-500":
-            completedPercentage >= 20 && completedPercentage < 40,
+            completedPercentage >= 25 && completedPercentage < 50,
           "bg-violet-700 border-violet-500":
-            completedPercentage >= 40 && completedPercentage < 60,
+            completedPercentage >= 50 && completedPercentage < 75,
           "bg-violet-600 border-violet-500":
-            completedPercentage >= 60 && completedPercentage < 80,
-          "bg-violet-500 border-violet-400": completedPercentage >= 80,
+            completedPercentage >= 75 && completedPercentage < 100,
+          "bg-violet-500 border-violet-400": completedPercentage === 100,
         })}
       />
 
